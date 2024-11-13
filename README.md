@@ -22,12 +22,14 @@
 Followed [this example](https://github.com/apache/beam/tree/master/sdks/python/apache_beam/examples/inference/multi_language_inference).
 
 Run this example using a Linux machine.
-Use Beam 2.46.0 because the Python code does not work now due to the transformers package.
+
+Use Beam `2.46.0` because the current Python code does not work due to the `transformers` package.
 
 ## Set up Python virtual environment
 
 ```bash
 # install torch and transformer
+# python 3.10
 pip install transformers==4.26.0 torch==1.13.1 "apache-beam[gcp]==2.46.0"
 
 # create tar gz file
@@ -37,14 +39,19 @@ python setup.py sdist
 
 ## Running the Java pipeline
 
-Use your own information below. You should change pom.xml when switching Beam.
+Use your own information below. You should change `pom.xml` when switching Beam.
+
+You need to get the model and `imdb_reviews.csv` to run this example.
 
 ```bash
-export GCP_PROJECT=<your gcp project>
-export GCP_BUCKET=<your gcp bucker>
-export GCP_REGION=<region of bucket>
+
+# Java 11
+
+export GCP_PROJECT=apache-beam-testing
+export GCP_BUCKET=apache-beam-x-lang-testing
+export GCP_REGION=us-central1
 export MODEL_NAME=bert-base-uncased
-export LOCAL_PACKAGE=<path to tarball>
+export LOCAL_PACKAGE=/usr/local/google/home/xqhu/playground/beam-multi_language_inference/multi_language_custom_transform/dist/multi-language-custom-transform-0.1.tar.gz
 
 cd last_word_prediction
 mvn compile exec:java -Dexec.mainClass=org.apache.beam.examples.MultiLangRunInference \
